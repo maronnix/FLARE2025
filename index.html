@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLARE 2025 - Главная премия Нодбин Жоски</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Все ваши оригинальные стили остаются без изменений */
+        :root {
+            --primary-blue: #002bbb;
+            --secondary-blue: #0026ae;
+            --accent-blue: #0032c9;
+            --dark-blue: #001f9a;
+            --light-blue: #003bd5;
+            --black: #000000;
+            --gold: #D4AF37;
+            --light-gold: #FFD700;
+            --dark-gold: #B8860B;
+            --white: #ffffff;
+            --gray: #888888;
+            --text-light: rgba(255, 255, 255, 0.85);
+            --overlay: rgba(0, 0, 0, 0.7);
+            --success: #4CAF50;
+            --error: #f44336;
+            --flare-orange: #FF8C00;
+            --flare-yellow: #FFD700;
+            --flare-light: #FFF9C4;
+            --link-blue: #00aaff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Вспышка FLARE */
+        .flare-effect {
+            position: fixed;
+            top: -500px;
+            left: -500px;
+            width: 1000px;
+            height: 1000px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .flare-core {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--flare-light) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0.4;
+            animation: flarePulse 10s infinite ease-in-out;
+            filter: blur(20px);
+        }
+
+        .flare-ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 1000px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                var(--flare-yellow) 15%, 
+                var(--flare-orange) 50%, 
+                var(--flare-yellow) 85%, 
+                transparent 100%);
+            transform-origin: 0 0;
+            opacity: 0.3;
+            filter: blur(8px);
+            animation: rayRotate 120s infinite linear;
+        }
+
+        @keyframes flarePulse {
+            0%, 100% { 
+                opacity: 0.4; 
+                transform: scale(1) rotate(0deg);
+            }
+            25% { 
+                opacity: 0.5; 
+                transform: scale(1.05) rotate(5deg);
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.1) rotate(0deg);
+            }
+            75% { 
+                opacity: 0.5; 
+                transform: scale(1.05) rotate(-5deg);
+            }
+        }
+
+        @keyframes rayRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Заставка */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeOut 1.5s ease-in-out 2s forwards;
+        }
+
+        .splash-content {
+            text-align: center;
+        }
+
+        .splash-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+            color: var(--gray);
+        }
+
+        .splash-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            color: var(--light-gold);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Шапка */
+        header {
+            padding: 1rem 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled .header-title {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        /* Админ-панель */
+        .admin-menu-container {
+            display: none;
+        }
+
+        .admin-menu-btn {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-menu-btn:hover {
+            background: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .admin-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 250px;
+            z-index: 101;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-dropdown.show {
+            display: block;
+        }
+
+        .admin-dropdown-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            margin-bottom: 5px;
+        }
+
+        .admin-dropdown-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .badge {
+            background: var(--gold);
+            color: var(--black);
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Герой секция */
+        .hero {
+            text-align: center;
+            padding: 8rem 0 5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .hero.scrolled {
+            margin-top: 60px;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .hero.scrolled .hero-title {
+            transform: scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .hero.scrolled .hero-subtitle {
+            transform: scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .hero.scrolled .cta-buttons {
+            transform: scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--gold) 0%, var(--light-gold) 100%);
+            color: var(--black);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Секции */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            color: var(--gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        /* О премии */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            line-height: 1.6;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .about-image {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        /* Номинации */
+        .nominations-section {
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 25px;
+            margin: 0 20px;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nominations-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 43, 187, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+            border-radius: 25px;
+            z-index: -1;
+        }
+
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--gold);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border-radius: 10px;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .category-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: var(--gold);
+        }
+
+        .faq-question:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--gold);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-link {
+            color: var(--link-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .faq-link:hover {
+            text-decoration: underline;
+            color: #66ccff;
+        }
+
+        /* Футер */
+        footer {
+            padding: 4rem 0 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+            background: linear-gradient(to bottom, rgba(0, 43, 187, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%);
+            position: relative;
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-link {
+            color: var(--gold);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--gold);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .auth-input {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        textarea.auth-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select.auth-input {
+            cursor: pointer;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* Модальные окна для голосования */
+        .vote-modal-content {
+            max-width: 1200px;
+            width: 95%;
+            max-height: 90vh;
+        }
+
+        .nominations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .nomination-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nomination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: var(--gold);
+        }
+
+        .nomination-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .nomination-card-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .nomination-card-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .nomination-card-status {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .nomination-modal-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .nominees-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nominee-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nominee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: var(--gold);
+        }
+
+        .nominee-card.selected {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .nominee-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .nominee-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-nav {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .splash-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .nominations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nominees-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .category-image {
+                height: 300px;
+            }
+            
+            .flare-effect {
+                display: none;
+            }
+            
+            .header-title {
+                display: none;
+            }
+            
+            .nominations-section {
+                margin: 0 10px;
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Вспышка FLARE -->
+    <div class="flare-effect">
+        <div class="flare-core"></div>
+        <div class="flare-ray" style="transform: rotate(0deg);"></div>
+        <div class="flare-ray" style="transform: rotate(45deg);"></div>
+        <div class="flare-ray" style="transform: rotate(90deg);"></div>
+        <div class="flare-ray" style="transform: rotate(135deg);"></div>
+        <div class="flare-ray" style="transform: rotate(180deg);"></div>
+    </div>
+
+    <!-- Заставка -->
+    <div class="splash-screen">
+        <div class="splash-content">
+            <h1 class="splash-title">нодбин жоски</h1>
+            <p class="splash-subtitle">FLARE 2025</p>
+        </div>
+    </div>
+
+    <!-- Шапка -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <div class="header-title">FLARE 2025</div>
+            <div class="admin-menu-container" id="adminMenuContainer">
+                <button class="admin-menu-btn" id="adminMenuBtn">Админ-панель</button>
+                <div class="admin-dropdown" id="adminDropdown">
+                    <div class="admin-dropdown-item" id="viewResultsBtn">Просмотреть результаты</div>
+                    <div class="admin-dropdown-item" id="viewStatsBtn">Статистика голосования</div>
+                    <div class="admin-dropdown-item" id="viewReportsBtn">Репорты <span class="badge" id="reportsCount">0</span></div>
+                </div>
+            </div>
+            <button class="auth-btn" id="authBtn">Войти</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Герой секция -->
+        <section class="hero" id="heroSection">
+            <h1 class="hero-title">FLARE 2025</h1>
+            <p class="hero-subtitle">ГЛАВНАЯ ПРЕМИЯ НОДБИН ЖОСКИ</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" id="voteMainBtn">Основные номинации</button>
+                <button class="btn btn-primary" id="voteAdditionalBtn">Дополнительные номинации</button>
+            </div>
+        </section>
+
+        <!-- О премии -->
+        <section class="section" id="about">
+            <h2 class="section-title">О премии</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><span class="about-highlight">FLARE 2025</span> - это ежегодная премия, где <span class="about-highlight">только вы решаете</span>, кто достоин стать победителем!</p>
+                    <p>Премия FLARE была создана для того, чтобы отметить самых активных, талантливых и влиятельных участников нашего игрового сообщества.</p>
+                    <p>Голосование проходит анонимно, чтобы обеспечить честность и объективность результатов.</p>
+                </div>
+                <div class="about-image">
+                    <img id="aboutImage" src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=750&q=80" alt="FLARE 2025">
+                </div>
+            </div>
+        </section>
+
+        <!-- Номинации -->
+        <section class="section nominations-section" id="nominations">
+            <h2 class="section-title">Категории номинаций</h2>
+            <div class="categories">
+                <div class="category-card">
+                    <img class="category-image" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&h=691&q=80" alt="Основные номинации">
+                    <h3 class="category-title">Основные номинации</h3>
+                    <p class="category-description">Самые престижные награды, определяющие лучших игроков и участников сообщества</p>
+                    <button class="btn btn-primary" id="voteMainBtn2">Голосовать</button>
+                </div>
+                <div class="category-card">
+                    <img class="category-image" src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&h=691&q=80" alt="Дополнительные номинации">
+                    <h3 class="category-title">Дополнительные номинации</h3>
+                    <p class="category-description">Специальные категории, отмечающие уникальные таланты и достижения</p>
+                    <button class="btn btn-primary" id="voteAdditionalBtn2">Голосовать</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq">
+            <h2 class="section-title">FAQ</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Как голосовать?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>При заполнении выбирайте любой понравившийся вами ответ, и прошу не накручивайте голоса.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Что будет, если я введу фейковый никнейм?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Если вы будете писать фейковый никнейм или притворяться другим участником, ваши голоса будут не зачтены!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Что если я нашёл баг или недоработку?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Если вы нашли баг, недоработку или у вас есть идея для улучшения, пожалуйста, сообщите об этом, нажав на <a href="#" class="faq-link" id="reportLink">ссылку</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Правила голосования</a>
+                <a href="#" class="footer-link">Контакты</a>
+            </div>
+            <p class="copyright">© 2025 FLARE Awards. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Регистрация</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="auth-form">
+                <input type="text" class="auth-input" id="usernameInput" placeholder="Введите ваш оригинальный Discord никнейм">
+                <input type="password" class="auth-input" id="passwordInput" placeholder="Придумайте пароль">
+                <input type="password" class="auth-input" id="confirmPasswordInput" placeholder="Подтвердите пароль">
+                <button class="btn btn-primary" id="registerBtn">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="nominationModal">
+        <div class="modal-content vote-modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="nominationModalTitle">Выберите номинацию</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="nominations-grid" id="nominationsGrid">
+                <!-- Номинации будут здесь -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="nomineeModal">
+        <div class="modal-content vote-modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="nomineeModalTitle">Выберите номинанта</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p class="nomination-modal-description" id="nominationDescription"></p>
+            <div class="nominees-grid" id="nomineesGrid">
+                <!-- Номинанты будут здесь -->
+            </div>
+            <div class="modal-nav">
+                <button class="btn btn-secondary" id="backToNominationsBtn">Назад к номинациям</button>
+                <button class="btn btn-primary" id="confirmVoteBtn" disabled>Подтвердить голос</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Сообщить о проблеме</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="auth-form">
+                <input type="text" class="auth-input" id="reportNickname" placeholder="Ваш ник">
+                <select class="auth-input" id="reportReason">
+                    <option value="" disabled selected>Причина</option>
+                    <option value="bug">Найден баг</option>
+                    <option value="improvement">Найдена недоработка</option>
+                </select>
+                <textarea class="auth-input" id="reportDescription" placeholder="Опишите проблему" rows="4"></textarea>
+                <button class="btn btn-primary" id="submitReport">Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Простой и надежный код
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Сайт загружен!');
+            
+            // Назначаем все обработчики событий
+            setupAllEventListeners();
+            
+            // Проверяем авторизацию
+            checkAuth();
+        });
+
+        function setupAllEventListeners() {
+            console.log('Настраиваем обработчики событий...');
+            
+            // Кнопка входа
+            document.getElementById('authBtn').addEventListener('click', function() {
+                document.getElementById('authModal').style.display = 'flex';
+            });
+
+            // Кнопка регистрации
+            document.getElementById('registerBtn').addEventListener('click', function() {
+                const username = document.getElementById('usernameInput').value.trim();
+                if (username) {
+                    localStorage.setItem('currentUser', username);
+                    document.getElementById('authBtn').textContent = username;
+                    document.getElementById('authModal').style.display = 'none';
+                    alert('Добро пожаловать, ' + username + '!');
+                    
+                    // Показываем админ-панель для админа
+                    if (username === 'maronnix9991') {
+                        document.getElementById('adminMenuContainer').style.display = 'block';
+                    }
+                }
+            });
+
+            // Кнопки голосования
+            document.getElementById('voteMainBtn').addEventListener('click', function() {
+                openVotingModal('main');
+            });
+            
+            document.getElementById('voteAdditionalBtn').addEventListener('click', function() {
+                openVotingModal('additional');
+            });
+            
+            document.getElementById('voteMainBtn2').addEventListener('click', function() {
+                openVotingModal('main');
+            });
+            
+            document.getElementById('voteAdditionalBtn2').addEventListener('click', function() {
+                openVotingModal('additional');
+            });
+
+            // Админ-панель
+            document.getElementById('adminMenuBtn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.getElementById('adminDropdown').classList.toggle('show');
+            });
+
+            // Закрытие админ-меню
+            document.addEventListener('click', function() {
+                document.getElementById('adminDropdown').classList.remove('show');
+            });
+
+            // Кнопки админ-панели
+            document.getElementById('viewResultsBtn').addEventListener('click', function() {
+                alert('Результаты будут доступны после завершения голосования!');
+            });
+            
+            document.getElementById('viewStatsBtn').addEventListener('click', function() {
+                alert('Статистика будет доступна после завершения голосования!');
+            });
+
+            // FAQ
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
+                });
+            });
+
+            // Ссылка на репорт
+            document.getElementById('reportLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('reportModal').style.display = 'flex';
+            });
+
+            // Отправка репорта
+            document.getElementById('submitReport').addEventListener('click', function() {
+                const nickname = document.getElementById('reportNickname').value;
+                const description = document.getElementById('reportDescription').value;
+                
+                if (nickname && description) {
+                    alert('Спасибо за ваш репорт!');
+                    document.getElementById('reportModal').style.display = 'none';
+                    
+                    // Очищаем форму
+                    document.getElementById('reportNickname').value = '';
+                    document.getElementById('reportReason').value = '';
+                    document.getElementById('reportDescription').value = '';
+                } else {
+                    alert('Пожалуйста, заполните все поля');
+                }
+            });
+
+            // Навигация в модальных окнах голосования
+            document.getElementById('backToNominationsBtn').addEventListener('click', function() {
+                document.getElementById('nomineeModal').style.display = 'none';
+                document.getElementById('nominationModal').style.display = 'flex';
+            });
+
+            document.getElementById('confirmVoteBtn').addEventListener('click', function() {
+                const selected = document.querySelector('.nominee-card.selected');
+                if (selected) {
+                    const nomineeName = selected.querySelector('.nominee-name').textContent;
+                    alert('Ваш голос за ' + nomineeName + ' сохранен!');
+                    document.getElementById('nomineeModal').style.display = 'none';
+                }
+            });
+
+            // Закрытие модальных окон
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+
+            // Закрытие модальных окон при клике вне их
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            });
+
+            // Анимация скролла для шапки
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('mainHeader');
+                const hero = document.getElementById('heroSection');
+                const scrollTop = window.pageYOffset;
+                
+                if (scrollTop > 100) {
+                    header.classList.add('scrolled');
+                    hero.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                    hero.classList.remove('scrolled');
+                }
+            });
+
+            console.log('Все обработчики настроены!');
+        }
+
+        function checkAuth() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                document.getElementById('authBtn').textContent = savedUser;
+                if (savedUser === 'maronnix9991') {
+                    document.getElementById('adminMenuContainer').style.display = 'block';
+                }
+            }
+        }
+
+        function openVotingModal(category) {
+            // Проверяем авторизацию
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                alert('Пожалуйста, войдите в систему для голосования');
+                document.getElementById('authModal').style.display = 'flex';
+                return;
+            }
+            
+            // Устанавливаем заголовок
+            document.getElementById('nominationModalTitle').textContent = 
+                category === 'main' ? 'Основные номинации' : 'Дополнительные номинации';
+            
+            // Данные номинаций
+            const nominations = category === 'main' ? [
+                { id: 'best_player', name: 'Лучший игрок года', description: 'За выдающиеся достижения в игровом процессе' },
+                { id: 'most_active', name: 'Самый активный участник', description: 'За постоянную активность в сообществе' },
+                { id: 'best_communicator', name: 'Лучший коммуникатор', description: 'За умение общаться и создавать атмосферу' }
+            ] : [
+                { id: 'most_funny', name: 'Самый веселый участник', description: 'За способность поднять настроение' },
+                { id: 'best_builder', name: 'Лучший строитель', description: 'За создание впечатляющих построек' },
+                { id: 'music_talent', name: 'Музыкальный талант', description: 'За музыкальные способности' }
+            ];
+            
+            // Заполняем сетку номинаций
+            const grid = document.getElementById('nominationsGrid');
+            grid.innerHTML = '';
+            
+            nominations.forEach(nomination => {
+                const card = document.createElement('div');
+                card.className = 'nomination-card';
+                card.innerHTML = `
+                    <img class="nomination-card-image" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="${nomination.name}">
+                    <h3 class="nomination-card-title">${nomination.name}</h3>
+                    <p class="nomination-card-description">${nomination.description}</p>
+                    <div class="nomination-card-status">Нажмите для выбора</div>
+                `;
+                
+                card.addEventListener('click', function() {
+                    openNomineeModal(nomination);
+                });
+                
+                grid.appendChild(card);
+            });
+            
+            // Показываем модальное окно
+            document.getElementById('nominationModal').style.display = 'flex';
+        }
+
+        function openNomineeModal(nomination) {
+            // Устанавливаем заголовок и описание
+            document.getElementById('nomineeModalTitle').textContent = nomination.name;
+            document.getElementById('nominationDescription').textContent = nomination.description;
+            
+            // Список номинантов
+            const nominees = ["Cloury", "Dony_zq", "Eozik", "Flourin", "Izumrudik", "Makos", "Menchik", "Nodben", "Qusti"];
+            
+            // Заполняем сетку номинантов
+            const grid = document.getElementById('nomineesGrid');
+            grid.innerHTML = '';
+            
+            // Сбрасываем кнопку подтверждения
+            document.getElementById('confirmVoteBtn').disabled = true;
+            
+            nominees.forEach(nominee => {
+                const card = document.createElement('div');
+                card.className = 'nominee-card';
+                card.innerHTML = `
+                    <img class="nominee-image" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="${nominee}">
+                    <div class="nominee-name">${nominee}</div>
+                `;
+                
+                card.addEventListener('click', function() {
+                    // Снимаем выделение со всех карточек
+                    document.querySelectorAll('.nominee-card').forEach(c => {
+                        c.classList.remove('selected');
+                    });
+                    
+                    // Выделяем текущую карточку
+                    this.classList.add('selected');
+                    
+                    // Активируем кнопку подтверждения
+                    document.getElementById('confirmVoteBtn').disabled = false;
+                });
+                
+                grid.appendChild(card);
+            });
+            
+            // Переключаем модальные окна
+            document.getElementById('nominationModal').style.display = 'none';
+            document.getElementById('nomineeModal').style.display = 'flex';
+        }
+
+        console.log('Код готов к работе!');
+    </script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/voting.js"></script>
+    <script src="scripts/admin.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+</body>
+</html>
